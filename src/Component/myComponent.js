@@ -1,15 +1,13 @@
-import React from 'react'
+import React from 'react';
+import PropTypes from "prop-types";
 
-export default function MyComponent(props) {
+export default function MyComponent({ name, age, showAge }) {
+
   return (
-    props.d.map((name, index) => (
-      <div>
-        {index === 3 ? (
-          <h1>This is condition!</h1>
-        ) : (
-          <h1 key={name}>{name}</h1>
-        )}
-      </div>
-    ))
+    <div>Hello {name} {showAge && `Age is ${age + 20}`}</div>
   )
+}
+MyComponent.propTypes = {
+  name: PropTypes.string,
+  age: PropTypes.number.isRequired
 }
