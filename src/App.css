@@ -32,7 +32,15 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
+}
+
+.childContainer {
+  background-color: red !important;
+  height: 150px !important;
+  width: 150px !important;
+  z-index: 25;
 }

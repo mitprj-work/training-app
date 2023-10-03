@@ -1,0 +1,7 @@
+.mainContainer {
+    display: inline-block;
+    background: green;
+    width: 250px;
+    height: 250px;
+    margin-left: 25px;
+}
