@@ -10,11 +10,12 @@ import Navbar from './Component/Navbar';
 import About from './Pages/About';
 import { getUserInfo } from '../src/Service/index';
 
-import { Dropdown } from 'semantic-ui-react'
+import { Dropdown, Card } from 'semantic-ui-react'
 
 function App() {
   const [userData, setUserData] = useState([]);
   const [seletedSity, selectCity] = useState('');
+  const [update, setUpdate] = useState(false);
   const cityOptions = [
     {
       key: 'Pune',
@@ -35,7 +36,7 @@ function App() {
 
   useEffect(() => {
     getUserInfoData(seletedSity);
-  }, [seletedSity])
+  }, [seletedSity, update])
 
   const getUserInfoData = (city) => {
     getUserInfo(city).then((res) => {
@@ -50,35 +51,39 @@ function App() {
   }
   return (
     <>
-      <div>
-        <Dropdown
-          placeholder='Select City'
-          fluid
-          selection
-          options={cityOptions}
-          onChange={(e, { name, value }) => { selectCity(value) }}
-        />
-      </div>
-      <div>
-        <table>
-          <tr>
-            <th>Id</th>
-            <th>Name</th>
-            <th>City</th>
-            <th>Address</th>
-          </tr>
-          {userData.map((user) => (
-            <tr>
-              <td>{user.id}</td>
-              <td>{user.name}</td>
-              <td>{user.city}</td>
-              <td>{user.address}</td>
-            </tr>
-          ))}
-        </table>
-      </div>
+      <Card>
+        <Card.Content>
+          <div>
+            <Dropdown
+              placeholder='Select City'
+              fluid
+              selection
+              options={cityOptions}
+              onChange={(e, { name, value }) => { selectCity(value) }}
+            />
+          </div>
+          <div>
+            <table>
+              <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>City</th>
+                <th>Address</th>
+              </tr>
+              {userData.map((user) => (
+                <tr>
+                  <td>{user.id}</td>
+                  <td>{user.name}</td>
+                  <td>{user.city}</td>
+                  <td>{user.address}</td>
+                </tr>
+              ))}
+            </table>
+          </div>
+        </Card.Content>
+      </Card>
 
-
+      <MyComponent setUpdate={setUpdate} update={update} />
     </>
   );
 }
