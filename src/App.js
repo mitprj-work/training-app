@@ -1,4 +1,5 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 import { useState, useEffect } from 'react';
 import 'semantic-ui-css/semantic.min.css'
 import './App.css';
@@ -9,13 +10,14 @@ import MyCheckbox from './Component/MyCheckbox';
 import Navbar from './Component/Navbar';
 import About from './Pages/About';
 import { getUserInfo } from '../src/Service/index';
+import { Dropdown, Card } from 'semantic-ui-react';
+import { fatcheUserInfo } from './Store/userStore';
 
-import { Dropdown, Card } from 'semantic-ui-react'
 
 function App() {
-  const [userData, setUserData] = useState([]);
-  const [seletedSity, selectCity] = useState('');
-  const [update, setUpdate] = useState(false);
+  const dispatch = useDispatch();
+  const { userInfo } = useSelector((state) => state.user)
+  const [seletedSity, selectCity] = useState('Gandhinagar');
   const cityOptions = [
     {
       key: 'Pune',
@@ -35,20 +37,22 @@ function App() {
   ]
 
   useEffect(() => {
-    getUserInfoData(seletedSity);
-  }, [seletedSity, update])
+    //getUserInfoData(seletedSity);
+    console.log('THIS IS USEEFFECT');
+    dispatch(fatcheUserInfo(seletedSity));
+  }, [seletedSity])
 
-  const getUserInfoData = (city) => {
-    getUserInfo(city).then((res) => {
-      if (res && res.data && res.error === false) {
-        console.log("data", res.data);
-        setUserData(res.data);
-      } else {
-        alert('error');
-      }
-    });
+  // const getUserInfoData = (city) => {
+  //   getUserInfo(city).then((res) => {
+  //     if (res && res.data && res.error === false) {
+  //       console.log("data", res.data);
+  //       setUserData(res.data);
+  //     } else {
+  //       alert('error');
+  //     }
+  //   });
 
-  }
+  // }
   return (
     <>
       <Card>
@@ -70,7 +74,7 @@ function App() {
                 <th>City</th>
                 <th>Address</th>
               </tr>
-              {userData.map((user) => (
+              {userInfo.map((user) => (
                 <tr>
                   <td>{user.id}</td>
                   <td>{user.name}</td>
@@ -83,7 +87,7 @@ function App() {
         </Card.Content>
       </Card>
 
-      <MyComponent setUpdate={setUpdate} update={update} />
+      <MyComponent />
     </>
   );
 }

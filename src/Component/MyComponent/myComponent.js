@@ -6,9 +6,11 @@ import './myComponent.css';
 import style from './mycomponent.module.css';
 import { increment, decrement, setName } from '../../Store/counterStore';
 import { seveUserInfo } from "../../Service/index";
+import { fatcheUserInfo } from '../../Store/userStore';
 const container = { display: 'inline-block', background: 'green', width: '250px', height: '250px', marginLeft: '25px' }
 
 export default function MyComponent(props) {
+  const dispatch = useDispatch();
   const [userInfo, setUserInfo] = useState({
     name: '', city: '', address: ''
   })
@@ -24,7 +26,7 @@ export default function MyComponent(props) {
     console.log("userInfo", userInfo);
     seveUserInfo({ userInfo }).then((res) => {
       console.log("res", res);
-      props.setUpdate(!props.update)
+      dispatch(fatcheUserInfo(userInfo.city));
     })
   }
 
