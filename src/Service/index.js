@@ -6,12 +6,15 @@ const commanApiCall = async ({
 }) => {
     try {
         console.log("DATA IN AXIOZ", data);
+        const contentType = data.isImage ? "application/image" : "application/json";
         const apiurl = API_URL + url;
+        const user = localStorage.getItem('user');
+        const token = user.token ? user.token : '';
         const response = await axios.get(apiurl,
             {
                 headers: {
-                    'Content-Type': 'application/json',
-                    'authorization': 'Bearer dfnskjdnfkdsnfkjsdfnkdsjnvdksvvskdmvsdjfdsnfsdknfsdnfsdnfdsnkf'
+                    'Content-Type': contentType,
+                    'authorization': `Bearer `
                 },
                 params: data
             }
@@ -31,7 +34,7 @@ const commanPostApiCall = async ({
         {
             headers: {
                 'Content-Type': 'application/json',
-                'authorization': 'Bearer dfnskjdnfkdsnfkjsdfnkdsjnvdksvvskdmvsdjfdsnfsdknfsdnfsdnfdsnkf'
+                'authorization': 'Bearer '
             },
             data: data
         }
@@ -46,6 +49,10 @@ export const getUserInfo = (city) => {
 }
 export const seveUserInfo = (data) => {
     const res = commanPostApiCall({ url: 'employee/save', data: data });
+    return res;
+}
+export const login = (data) => {
+    const res = commanPostApiCall({ url: 'employee/login', data: data });
     return res;
 }
 

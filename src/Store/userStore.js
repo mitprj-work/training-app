@@ -14,8 +14,8 @@ const userSlice = createSlice({
     name: 'user',
     initialState,
     reducers: {
-        increment: (state) => { state.counter = state.counter + 1 },
-        decrement: (state) => { state.counter = state.counter - 1 },
+        increment: (state) => { state.userCounter = state.userCounter + 1 },
+        decrement: (state) => { state.userCounter = state.userCounter - 1 },
     }, extraReducers: (builder) => {
         builder
             .addCase(fatcheUserInfo.pending, (state) => {
@@ -50,11 +50,12 @@ const commanApiCall = async ({
     try {
         console.log("DATA IN AXIOZ", data);
         const apiurl = API_URL + url;
+        let token = localStorage.getItem('token')
         const response = await axios.get(apiurl,
             {
                 headers: {
                     'Content-Type': 'application/json',
-                    'authorization': 'Bearer dfnskjdnfkdsnfkjsdfnkdsjnvdksvvskdmvsdjfdsnfsdknfsdnfsdnfdsnkf'
+                    'authorization': 'Bearer ' + token
                 },
                 params: data
             }

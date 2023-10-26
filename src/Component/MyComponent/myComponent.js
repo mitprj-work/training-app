@@ -12,7 +12,7 @@ const container = { display: 'inline-block', background: 'green', width: '250px'
 export default function MyComponent(props) {
   const dispatch = useDispatch();
   const [userInfo, setUserInfo] = useState({
-    name: '', city: '', address: ''
+    name: '', city: '', address: '', userid: '', password: ''
   })
 
   const handleChange = (e) => {
@@ -24,6 +24,7 @@ export default function MyComponent(props) {
   }
   const handleSubmit = () => {
     console.log("userInfo", userInfo);
+    // props.getData(userInfo);
     seveUserInfo({ userInfo }).then((res) => {
       console.log("res", res);
       dispatch(fatcheUserInfo(userInfo.city));
@@ -49,6 +50,16 @@ export default function MyComponent(props) {
             <Form.Field>
               <label>Address</label>
               <Input placeholder='Address' name='address'
+                onChange={handleChange} />
+            </Form.Field>
+            <Form.Field>
+              <label>USerId</label>
+              <Input placeholder='Address' name='userid'
+                onChange={handleChange} />
+            </Form.Field>
+            <Form.Field>
+              <label>Password</label>
+              <Input placeholder='Address' name='password'
                 onChange={handleChange} />
             </Form.Field>
             <Button onClick={handleSubmit}>Submit</Button>
